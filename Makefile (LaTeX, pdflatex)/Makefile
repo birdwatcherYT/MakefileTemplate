@@ -1,11 +1,13 @@
 FILE = $(wildcard *.tex)
 PDF  = $(FILE:.tex=.pdf)
+AUX  = $(FILE:.tex=.aux)
+LOG  = $(FILE:.tex=.log)
 
 .PHONY:run
 run:$(PDF)
 
 %.pdf: %.tex
-	pdflatex $<
+	pdflatex -synctex=1 $<
 	# pbibtex $*
 	# cmd /c start $@
 
@@ -16,4 +18,4 @@ all: clean run
 #クリーン
 .PHONY:clean
 clean: 
-	rm -f $(PDF)
+	rm -f $(PDF) $(AUX) $(LOG)
